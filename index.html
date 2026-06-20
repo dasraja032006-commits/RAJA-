@@ -69,7 +69,8 @@ font-weight:bold;
 <p><b>RAJA AI:</b> Welcome Raja 👑</p>
 <p><b>RAJA AI:</b> I am online.</p>
 </div><input id="msg" placeholder="Type here...">
-<button onclick="send()">Send</button><script>
+<button onclick="send()">Send</button>
+<button onclick="startVoice()">🎤 Speak</button><script>
 function send(){
 let msg=document.getElementById("msg").value;
 let chat=document.getElementById("chat");
@@ -91,6 +92,27 @@ chat.innerHTML += "<p><b>RAJA AI:</b> "+reply+"</p>";
 
 document.getElementById("msg").value="";
 chat.scrollTop=chat.scrollHeight;
+}
+function startVoice(){
+
+const recognition =
+new(window.SpeechRecognition ||
+window.webkitSpeechRecognition)();
+
+recognition.lang='en-US';
+
+recognition.start();
+
+recognition.onresult=function(event){
+
+let text=event.results[0][0].transcript;
+
+document.getElementById("msg").value=text;
+
+send();
+
+};
+
 }
 </script></body>
 </html>
